@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>许可证选择向导</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="icon" type="png" href="favicon.png">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <header class="header">
+        <div class="container">
+            <h1 class="logo">许可证选择向导</h1>
+            <nav class="nav">
+                <ul>
+                    <li><a href="#wizard" class="nav-link active">选择向导</a></li>
+                    <li><a href="#licenses" class="nav-link">许可证列表</a></li>
+                    <li><a href="#compare" class="nav-link">许可证比较</a></li>
+                    <li><a href="#download" class="nav-link">下载许可证</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 主要内容 -->
+    <main class="main">
+        <!-- 选择向导卡片 -->
+        <section id="wizard" class="section wizard-section">
+            <div class="container">
+                <div class="wizard-card card">
+                    <div class="card-header">
+                        <h3>许可证选择向导</h3>
+                    </div>
+                    <div class="card-body">
+                        <div id="wizardContent">
+                            <!-- 初始状态：显示帮助选择按钮 -->
+                            <div class="wizard-initial">
+                                <p>根据您的需求，快速选择适合的许可证</p>
+                                <div class="wizard-options">
+                                    <button class="btn btn-primary btn-lg" onclick="startWizard()">帮我选择</button>
+                                </div>
+                                <div class="wizard-description">
+                                    <h4>选择逻辑：</h4>
+                                    <ul>
+                                        <li><strong>CC许可证：</strong>基于使用场景、商业使用、修改权限和共享方式</li>
+                                        <li><strong>开源软件许可证：</strong>基于权利放弃、衍生作品要求、网络服务适用性和专利保护需求</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <!-- 向导步骤容器 -->
+                            <div class="wizard-container" style="display: none;">
+                                <div class="wizard-steps">
+                                    <div class="step active" data-step="1">
+                                        <span class="step-number">1</span>
+                                        <span class="step-title">使用场景</span>
+                                    </div>
+                                    <div class="step" data-step="2">
+                                        <span class="step-number">2</span>
+                                        <span class="step-title">商业使用</span>
+                                    </div>
+                                    <div class="step" data-step="3">
+                                        <span class="step-number">3</span>
+                                        <span class="step-title">修改权限</span>
+                                    </div>
+                                    <div class="step" data-step="4">
+                                        <span class="step-number">4</span>
+                                        <span class="step-title">共享方式</span>
+                                    </div>
+                                    <div class="step" data-step="5">
+                                        <span class="step-number">5</span>
+                                        <span class="step-title">权利放弃</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="wizard-content">
+                                    <!-- 步骤1：使用场景 -->
+                                    <div class="step-content active" data-step="1">
+                                        <h3 class="step-title">许可证将在哪使用？</h3>
+                                        <div class="options">
+                                            <label class="option">
+                                                <input type="radio" name="use-case" value="software" data-next="2">
+                                                <span class="option-text">软件、程序、源码、库</span>
+                                            </label>
+                                            <label class="option">
+                                                <input type="radio" name="use-case" value="content" data-next="2">
+                                                <span class="option-text">内容（文档、图像、音乐、文章等）</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- 步骤2：商业使用 -->
+                                    <div class="step-content" data-step="2">
+                                        <h3 class="step-title">你是否允许商业使用你的作品？</h3>
+                                        <div class="options">
+                                            <label class="option">
+                                                <input type="radio" name="commercial" value="yes" data-next="3">
+                                                <span class="option-text">是，允许商业使用</span>
+                                            </label>
+                                            <label class="option">
+                                                <input type="radio" name="commercial" value="no" data-next="3">
+                                                <span class="option-text">否，禁止商业使用</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- 步骤3：修改权限 -->
+                                    <div class="step-content" data-step="3">
+                                        <h3 class="step-title">你是否允许修改你的作品？</h3>
+                                        <div class="options">
+                                            <label class="option">
+                                                <input type="radio" name="modify" value="yes" data-next="4">
+                                                <span class="option-text">是，允许修改</span>
+                                            </label>
+                                            <label class="option">
+                                                <input type="radio" name="modify" value="no" data-next="4">
+                                                <span class="option-text">否，禁止修改</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- 步骤4：共享方式 -->
+                                    <div class="step-content" data-step="4">
+                                        <h3 class="step-title">如果允许修改，衍生作品是否需要使用相同许可证？</h3>
+                                        <div class="options">
+                                            <label class="option">
+                                                <input type="radio" name="sharealike" value="yes" data-next="5">
+                                                <span class="option-text">是，必须使用相同许可证</span>
+                                            </label>
+                                            <label class="option">
+                                                <input type="radio" name="sharealike" value="no" data-next="5">
+                                                <span class="option-text">否，无需使用相同许可证</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- 步骤5：权利放弃 -->
+                                    <div class="step-content" data-step="5">
+                                        <h3 class="step-title">你是否希望完全放弃所有权利？</h3>
+                                        <div class="options">
+                                            <label class="option">
+                                                <input type="radio" name="public-domain" value="yes" data-next="result">
+                                                <span class="option-text">是，完全放弃权利，进入公共领域</span>
+                                            </label>
+                                            <label class="option">
+                                                <input type="radio" name="public-domain" value="no" data-next="result">
+                                                <span class="option-text">否，保留部分权利</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- 结果页面 -->
+                                    <div class="step-content" data-step="result">
+                                        <h3 class="step-title">推荐的许可证</h3>
+                                        <div class="recommendation-result" id="recommendationResult">
+                                            <!-- 推荐结果将在这里显示 -->
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="wizard-controls">
+                                    <button class="btn btn-secondary" onclick="prevStep()" disabled>上一步</button>
+                                    <button class="btn btn-primary" onclick="nextStep()">下一步</button>
+                                    <button class="btn btn-outline" onclick="resetWizard()">重新开始</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- 许可证列表卡片 -->
+        <section id="licenses" class="section licenses-section">
+            <div class="container">
+                <div class="licenses-card card">
+                    <div class="card-header">
+                        <h3>许可证列表</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="filter-controls">
+                            <input type="text" class="search-input" placeholder="搜索许可证..." id="licenseSearch">
+                            <select class="filter-select" id="licenseTypeFilter">
+                                <option value="all">所有类型</option>
+                                <option value="permissive">宽松式</option>
+                                <option value="copyleft">Copyleft</option>
+                                <option value="weak-copyleft">弱Copyleft</option>
+                                <option value="public-domain">公共领域</option>
+                            </select>
+                        </div>
+                        <div class="licenses-grid" id="licensesGrid">
+                            <!-- 许可证卡片将在这里动态生成 -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 许可证比较卡片 -->
+        <section id="compare" class="section compare-section">
+            <div class="container">
+                <div class="compare-card card">
+                    <div class="card-header">
+                        <h3>许可证比较</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="compare-controls">
+                            <div class="select-licenses">
+                                <h3>选择要比较的许可证</h3>
+                                <div class="license-checkboxes" id="licenseCheckboxes">
+                                    <!-- 许可证复选框将在这里动态生成 -->
+                                </div>
+                            </div>
+                            <button class="btn btn-primary" onclick="compareLicenses()">比较选中的许可证</button>
+                        </div>
+                        <div class="compare-results" id="compareResults">
+                            <!-- 比较结果将在这里显示 -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 下载许可证卡片 -->
+        <section id="download" class="section download-section">
+            <div class="container">
+                <div class="download-card card">
+                    <div class="card-header">
+                        <h3>下载许可证</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="download-container">
+                            <div class="license-select">
+                                <h3>选择许可证</h3>
+                                <select class="license-dropdown" id="licenseDownloadSelect">
+                                    <!-- 许可证选项将在这里动态生成 -->
+                                </select>
+                            </div>
+                            
+                            <div class="customize-form">
+                                <h3>自定义许可证信息</h3>
+                                <div class="form-group">
+                                    <label for="authorName">作者姓名</label>
+                                    <input type="text" id="authorName" placeholder="您的姓名或组织">
+                                </div>
+                                <div class="form-group">
+                                    <label for="projectName">项目名称</label>
+                                    <input type="text" id="projectName" placeholder="您的项目名称">
+                                </div>
+                                <div class="form-group">
+                                    <label for="year">年份</label>
+                                    <input type="text" id="year" placeholder="当前年份">
+                                </div>
+                            </div>
+                            
+                            <div class="license-preview">
+                                <h3>许可证预览</h3>
+                                <pre id="licensePreview"></pre>
+                            </div>
+                            
+                            <div class="download-buttons">
+                                <button class="btn btn-primary" onclick="downloadLicense()">下载许可证</button>
+                                <button class="btn btn-secondary" onclick="copyLicense()">复制许可证文本</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 许可证选择向导. 帮助开发者选择合适的开源许可证.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript 文件 -->
+    <script src="js/licenses.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
