@@ -111,54 +111,51 @@ function initializeWizard() {
                 recommendedLicenses.push('cc0-1.0');
             }
         } else {
-                // 软件场景下使用开源软件许可证选择决策树
-                if (useCase === 'software') {
-                    // 是否要求衍生作品开源？
-                    if (sharealike === 'yes') {
-                        // 是否适用于网络服务？
-                        // 简单处理：这里假设用户选择了网络服务
-                        // 在实际应用中，可能需要添加一个额外的步骤
-                        recommendedLicenses.push('agpl-3.0');
-                        recommendedLicenses.push('gpl-3.0');
-                        recommendedLicenses.push('lgpl-3.0');
-                        recommendedLicenses.push('mpl-2.0');
-                    } else {
-                        // 是否需要明确的专利保护？
-                        // 简单处理：根据使用场景判断
-                        if (useCase === 'software') {
-                            recommendedLicenses.push('apache-2.0');
-                            recommendedLicenses.push('mulanpsl-2.0');
-                            recommendedLicenses.push('mulanpsl-1.0');
+            // 软件场景下使用开源软件许可证选择决策树
+            if (useCase === 'software') {
+                // 是否要求衍生作品开源？
+                if (sharealike === 'yes') {
+                    // 是否适用于网络服务？
+                    // 简单处理：这里假设用户选择了网络服务
+                    // 在实际应用中，可能需要添加一个额外的步骤
+                    recommendedLicenses.push('agpl-3.0');
+                    recommendedLicenses.push('gpl-3.0');
+                    recommendedLicenses.push('lgpl-3.0');
+                    recommendedLicenses.push('mpl-2.0');
+                } else {
+                    // 不要求衍生作品开源的情况
+                    // 推荐多种许可证，包括有专利保护和无专利保护的
+                    recommendedLicenses.push('apache-2.0');
+                    recommendedLicenses.push('mulanpsl-2.0');
+                    recommendedLicenses.push('mulanpsl-1.0');
+                    recommendedLicenses.push('mit');
+                    recommendedLicenses.push('bsd-3-clause');
+                    recommendedLicenses.push('bsd-2-clause');
+                }
+            } else {
+                // 内容场景下使用CC许可证选择决策树
+                if (commercial === 'yes') {
+                    if (modify === 'yes') {
+                        if (sharealike === 'yes') {
+                            recommendedLicenses.push('cc-by-sa');
                         } else {
-                            recommendedLicenses.push('mit');
-                            recommendedLicenses.push('bsd-3-clause');
-                            recommendedLicenses.push('bsd-2-clause');
+                            recommendedLicenses.push('cc-by');
                         }
+                    } else {
+                        recommendedLicenses.push('cc-by-nd');
                     }
                 } else {
-                    // 内容场景下使用CC许可证选择决策树
-                    if (commercial === 'yes') {
-                        if (modify === 'yes') {
-                            if (sharealike === 'yes') {
-                                recommendedLicenses.push('cc-by-sa');
-                            } else {
-                                recommendedLicenses.push('cc-by');
-                            }
+                    if (modify === 'yes') {
+                        if (sharealike === 'yes') {
+                            recommendedLicenses.push('cc-by-nc-sa');
                         } else {
-                            recommendedLicenses.push('cc-by-nd');
+                            recommendedLicenses.push('cc-by-nc');
                         }
                     } else {
-                        if (modify === 'yes') {
-                            if (sharealike === 'yes') {
-                                recommendedLicenses.push('cc-by-nc-sa');
-                            } else {
-                                recommendedLicenses.push('cc-by-nc');
-                            }
-                        } else {
-                            recommendedLicenses.push('cc-by-nc-nd');
-                        }
+                        recommendedLicenses.push('cc-by-nc-nd');
                     }
                 }
+            }
         }
         
         // 显示推荐结果
